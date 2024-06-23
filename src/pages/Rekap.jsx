@@ -102,7 +102,7 @@ export const Rekap = () => {
       <Sidebar />
       <div className="flex w-screen my-12 ml-14 mr-14">
         <div className="flex flex-col gap-6 w-full">
-          <div className="text-2xl font-bold mb-4">Rekapitulasi</div>
+          <div className="text-3xl font-bold mb-4">Rekapitulasi</div>
           <div className="text-xl font-semibold text-center mb-8">
           Rekapitulasi aktifitas WayCycle di Bank Sampah A
           </div>

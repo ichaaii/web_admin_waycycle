@@ -7,6 +7,37 @@ import gagal from "../assets/img/Cancel.png";
 export const InputPage = () => {
   const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
   const [isFailureModalOpen, setIsFailureModalOpen] = useState(false);
+  const [beratSampah, setBeratSampah] = useState(0);
+  const [jumlahBotol, setJumlahBotol] = useState(0);
+  const [username, setUsername] = useState("");
+  const [totalWayPoint, setTotalWayPoint] = useState(0);
+  const [totalXP, setTotalXP] = useState(0);
+
+  const handleBeratSampahChange = (e) => {
+    const value = parseInt(e.target.value, 10) || 0
+    setBeratSampah(value);
+    calculateTotalWayPointAndXP();
+  };
+
+  const handleJumlahBotolChange = (e) => {
+    const value = parseFloat(e.target.value, 10) || 0
+    setJumlahBotol(value);
+    calculateTotalWayPointAndXP();
+  };
+
+  const calculateTotalWayPointAndXP = () => {
+    // Your calculation logic here
+    const wayPointPerSampah = 10;
+    const wayPointPerBotol = 5;
+    const xpPerSampah = 20;
+    const xpPerBotol = 10;
+
+    const totalWayPoint = beratSampah * wayPointPerSampah + jumlahBotol * wayPointPerBotol;
+    const totalXP = beratSampah * xpPerSampah + jumlahBotol * xpPerBotol;
+
+    setTotalWayPoint(totalWayPoint);
+    setTotalXP(totalXP);
+  };
 
   const handleButtonClick = () => {
     // Simulate a success or failure condition
@@ -29,30 +60,45 @@ export const InputPage = () => {
       <Sidebar />
       <div className="flex w-screen my-12 ml-14 mr-14">
         <div className="flex flex-col gap-6 w-full">
-          <div className="text-2xl font-bold mb-4">Bank Sampah A</div>
+          <div className="text-3xl font-bold mb-4">Bank Sampah A</div>
           <div className="text-xl font-semibold text-center mb-8">
             Input Data Daur Ulang Pengguna
           </div>
           <div className="flex flex-col items-center mr-[5rem] gap-6">
             <div className="flex flex-row items-center gap-5 w-4/6">
-              <h5 className="w-4/6">Username</h5>
-              <Input label="username" size="md" />
+            <h5 className="w-4/6">Username</h5>
+              <Input
+                label="username"
+                size="md"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+              />
             </div>
             <div className="flex flex-row items-center gap-5 w-4/6">
               <h5 className="w-4/6">Berat Sampah Organik</h5>
-              <Input size="md" label="berat sampah" />
+              <Input
+                size="md"
+                label="berat sampah"
+                value={beratSampah}
+                onChange={handleBeratSampahChange}
+              />
             </div>
             <div className="flex flex-row items-center gap-5 w-4/6">
               <h5 className="w-4/6">Jumlah Botol Plastik</h5>
-              <Input size="md" label="jumlah botol" />
+              <Input
+                size="md"
+                label="jumlah botol"
+                value={jumlahBotol}
+                onChange={handleJumlahBotolChange}
+              />
             </div>
             <div className="flex flex-row items-center gap-5 w-4/6">
               <h5 className="w-4/6">Total WayPoint</h5>
-              <Input size="md" label="Total WayPoint" />
+              <Input size="md" label="Total WayPoint" value={totalWayPoint} disabled />
             </div>
             <div className="flex flex-row items-center gap-5 w-4/6">
               <h5 className="w-4/6">Total XP</h5>
-              <Input size="md" label="Total XP" />
+              <Input size="md" label="Total XP" value={totalXP} disabled />
             </div>
             <div className="flex justify-end w-4/6">
               <Button

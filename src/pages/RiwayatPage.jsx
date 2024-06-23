@@ -49,8 +49,8 @@ export const RiwayatPage = () => {
         <Sidebar />
         <div className="flex w-screen my-12 ml-14 mr-14">
         <div className="flex flex-col gap-6 w-full">
-            <h1 className='text-2xl font-bold mb-4'>Riwayat Transaksi</h1>
-        <Card className="w-full">
+            <h1 className='text-3xl font-bold mb-4'>Riwayat Transaksi</h1>
+        <Card className="w-full overflow-scroll">
           <table className="w-full min-w-max table-auto text-center bg-hijau rounded-2xl">
             <thead>
               <tr >

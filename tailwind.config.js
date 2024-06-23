@@ -11,6 +11,7 @@ module.exports = withMT({
       colors:{
         'hijau': '#4F6F52',
         'hijau-90': '#4D6E51',
+        'font-hijau': '#1A4D2E',
         'putih': '#E9E9E9',
         'abu' : "E7E7E7"
       },
