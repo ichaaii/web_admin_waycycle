@@ -26,7 +26,6 @@ export const InputPage = () => {
   };
 
   const calculateTotalWayPointAndXP = () => {
-    // Your calculation logic here
     const wayPointPerSampah = 10;
     const wayPointPerBotol = 5;
     const xpPerSampah = 20;
@@ -40,7 +39,6 @@ export const InputPage = () => {
   };
 
   const handleButtonClick = () => {
-    // Simulate a success or failure condition
     const isSuccess = Math.random() > 0.5;
 
     if (isSuccess) {

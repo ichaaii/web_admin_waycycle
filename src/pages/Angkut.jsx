@@ -2,6 +2,39 @@ import React, { useState } from "react";
 import { Sidebar } from "../components/Sidebar";
 import satria from "../assets/img/Satriaa.png";
 
+const orders = [
+  {
+    id: '2453800',
+    address: 'Jl. Pesona No. 20',
+    time: '14.33 WIB',
+    price: '21.000',
+    distance: '7.0 KM',
+    status: 'Satria menuju Lokasi',
+    estimation: '14.20 WIB',
+    riderName: 'Heru',
+  },
+  {
+    id: '245879',
+    address: 'Jl. Medika Sari No. 76',
+    time: '18.23 WIB',
+    price: '18.000',
+    distance: '6.0 KM',
+    status: 'Satria menuju Lokasi',
+    estimation: '14.20 WIB',
+    riderName: 'Heru',
+  },
+  {
+    id: '2454578',
+    address: 'Jl. Permata Utama No. 7',
+    time: '09.48 WIB',
+    price: '50.000',
+    distance: '8.5 KM',
+    status: 'Satria menuju Lokasi',
+    estimation: '14.20 WIB',
+    riderName: 'Heru',
+  },
+];
+
 export const Angkut = () => {
   const [currentView, setCurrentView] = useState("pesanan");
 
@@ -56,75 +89,69 @@ export const Angkut = () => {
   );
 };
 
-const PesananView = () => {
+const OrderCard = ({ order, view }) => {
+  const { id, address, time, price, distance, status, estimation, riderName } = order;
+
   return (
     <div className="flex flex-col gap-6">
       <div className="flex flex-col gap-6">
-        <h3 className="text-lg">#2453800</h3>
+      <h3 className="text-lg">{`#${id}`}</h3>
         <div className="flex flex-row gap-10 text-xl">
           <img alt="satria" className="h-14 w-14" src={satria} />
           <div className="w-full flex flex-col gap-5">
             <div className="flex flex-row justify-between">
-              <h3>Jl. Pesona No. 20</h3>
-              <h3>14.33 WIB</h3>
+            <h3>{address}</h3>
+            <h3>{time}</h3>
             </div>
             <div className="flex flex-row justify-between">
               <div className="flex flex-row gap-11 w-full">
-                <h3>Rp.21.000</h3>
-                <h3>7.0 KM</h3>
+              <h3>{`Rp${price}`}</h3>
+              <h3>{distance}</h3>
               </div>
+              {view === "pesanan" && (
               <button className="bg-hijau rounded-full px-10 py-2 text-white">
                 Terima
               </button>
-            </div>
-          </div>
-        </div>
-        <hr className="border-b border-black " />
-      </div>
-      <div className="flex flex-col gap-6">
-        <h3 className="text-lg">#245879</h3>
-        <div className="flex flex-row gap-10 text-xl">
-          <img alt="satria" className="h-14 w-14" src={satria} />
-          <div className="w-full flex flex-col gap-5">
-            <div className="flex flex-row justify-between">
-              <h3>Jl.Medika Sari No. 76</h3>
-              <h3>18.23 WIB</h3>
-            </div>
-            <div className="flex flex-row justify-between">
-              <div className="flex flex-row gap-11 w-full">
-                <h3>Rp.18.000</h3>
-                <h3>6.0 KM</h3>
-              </div>
+            )}
+            {view === "dalam_proses" && (
               <button className="bg-hijau rounded-full px-10 py-2 text-white">
-                Terima
+                Selesai
               </button>
+            )}
             </div>
           </div>
         </div>
-        <hr className="border-b border-black " />
-      </div>
-      <div className="flex flex-col gap-6">
-        <h3 className="text-lg">#2454578</h3>
-        <div className="flex flex-row gap-10 text-xl">
-          <img alt="satria" className="h-14 w-14" src={satria} />
-          <div className="w-full flex flex-col gap-5">
-            <div className="flex flex-row justify-between">
-              <h3>Jl. Permata Utama No. 7</h3>
-              <h3>09.48 WIB</h3>
-            </div>
-            <div className="flex flex-row justify-between">
-              <div className="flex flex-row gap-11 w-full">
-                <h3>Rp.50.000</h3>
-                <h3>8.5 KM</h3>
-              </div>
-              <button className="bg-hijau rounded-full px-10 py-2 text-white">
-                Terima
-              </button>
-            </div>
+        {view === "dalam_proses" && (
+        <div className="flex flex-row justify-between">
+          <div className="flex flex-col gap-6">
+            <h3 className="text-xl">{`Status: ${status}`}</h3>
+            <h3 className="text-xl">{`Estimasi Selesai: ${estimation}`}</h3>
+            <a href="/posisi" className="text-font-hijau text-xl font-semibold">
+              Cek Posisi Satria
+            </a>
+          </div>
+          <div className="flex flex-col justify-between">
+            <h3 className="text-xl text-right">{`Satria: ${riderName}`}</h3>
           </div>
         </div>
-        <hr className="border-b border-black " />
-      </div>
+      )}
+      {view === "riwayat" && (
+        <div className="flex flex-row justify-between">
+          <h3 className="text-xl text-right">{`Satria: ${riderName}`}</h3>
+        </div>
+      )}
+      <hr className="border-b border-black" />
+    </div>
+    </div>
+  );
+};
+
+const PesananView = () => {
+  return (
+    <div className="flex flex-col gap-6">
+      {orders.map(order => (
+        <OrderCard key={order.id} order={order} view="pesanan" />
+      ))}
     </div>
   );
 };
@@ -132,74 +159,9 @@ const PesananView = () => {
 const DalamProsesView = () => {
   return (
     <div className="flex flex-col gap-6">
-      <div className="flex flex-col gap-6">
-        <h3 className="text-lg">#2453800</h3>
-        <div className="flex flex-row gap-10 text-xl">
-          <img alt="satria" className="h-14 w-14" src={satria} />
-          <div className="w-full flex flex-col gap-5">
-            <div className="flex flex-row justify-between">
-              <h3>Jl. Pesona No. 20</h3>
-              <h3>14.33 WIB</h3>
-            </div>
-            <div className="flex flex-row justify-between">
-              <div className="flex flex-row gap-11 w-full">
-                <h3>Rp.21.000</h3>
-                <h3>7.0 KM</h3>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="flex flex-row justify-between">
-          <div className="flex flex-col gap-6">
-            <h3 className="text-xl">Status: Satria menuju Lokasi</h3>
-            <h3 className="text-xl">Estimasi Selesai: 14.20 WIB</h3>
-            <a href="/" className="text-font-hijau text-xl font-semibold">
-              Cek Posisi Satria
-            </a>
-          </div>
-          <div className="flex flex-col justify-between">
-            <h3 className="text-xl text-right">Satria: Heru</h3>
-            <button className="bg-hijau rounded-full px-10 py-2 text-white">
-              Terima
-            </button>
-          </div>
-        </div>
-        <hr className="border-b border-black " />
-      </div>
-      <div className="flex flex-col gap-6">
-        <h3 className="text-lg">#2453800</h3>
-        <div className="flex flex-row gap-10 text-xl">
-          <img alt="satria" className="h-14 w-14" src={satria} />
-          <div className="w-full flex flex-col gap-5">
-            <div className="flex flex-row justify-between">
-              <h3>Jl. Pesona No. 20</h3>
-              <h3>14.33 WIB</h3>
-            </div>
-            <div className="flex flex-row justify-between">
-              <div className="flex flex-row gap-11 w-full">
-                <h3>Rp.21.000</h3>
-                <h3>7.0 KM</h3>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="flex flex-row justify-between">
-          <div className="flex flex-col gap-6">
-            <h3 className="text-xl">Status: Satria menuju Lokasi</h3>
-            <h3 className="text-xl">Estimasi Selesai: 14.20 WIB</h3>
-            <a href="/" className="text-font-hijau text-xl font-semibold">
-              Cek Posisi Satria
-            </a>
-          </div>
-          <div className="flex flex-col justify-between">
-            <h3 className="text-xl text-right">Satria: Heru</h3>
-            <button className="bg-hijau rounded-full px-10 py-2 text-white">
-              Terima
-            </button>
-          </div>
-        </div>
-        <hr className="border-b border-black " />
-      </div>
+      {orders.map(order => (
+        <OrderCard key={order.id} order={order} view="dalam_proses" />
+      ))}
     </div>
   );
 };
@@ -207,29 +169,9 @@ const DalamProsesView = () => {
 const RiwayatView = () => {
   return (
     <div className="flex flex-col gap-6">
-      <div className="flex flex-col gap-6">
-        <div className="flex flex-row justify-between">
-        <h3 className="text-lg">#2453800</h3>
-        <h3 className="text-lg">Satria: Agung</h3>
-        </div>
-        
-        <div className="flex flex-row gap-10 text-xl">
-          <img alt="satria" className="h-14 w-14" src={satria} />
-          <div className="w-full flex flex-col gap-5">
-            <div className="flex flex-row justify-between">
-              <h3>Jl. Pesona No. 20</h3>
-              <h3>14.33 WIB</h3>
-            </div>
-            <div className="flex flex-row justify-between">
-                <h3>Rp.21.000</h3>
-              <button className="bg-hijau rounded-full px-10 py-2 text-white">
-                Terima
-              </button>
-            </div>
-          </div>
-        </div>
-        <hr className="border-b border-black " />
-      </div>
-      </div>
+      {orders.map(order => (
+        <OrderCard key={order.id} order={order} view="riwayat" />
+      ))}
+    </div>
   );
 };
