@@ -26,10 +26,10 @@ export const InputPage = () => {
   };
 
   const calculateTotalWayPointAndXP = () => {
-    const wayPointPerSampah = 10;
-    const wayPointPerBotol = 5;
-    const xpPerSampah = 20;
-    const xpPerBotol = 10;
+    const wayPointPerSampah = 500;
+    const wayPointPerBotol = 50;
+    const xpPerSampah = 50;
+    const xpPerBotol = 100;
 
     const totalWayPoint = beratSampah * wayPointPerSampah + jumlahBotol * wayPointPerBotol;
     const totalXP = beratSampah * xpPerSampah + jumlahBotol * xpPerBotol;
